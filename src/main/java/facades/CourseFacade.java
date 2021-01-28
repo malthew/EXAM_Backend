@@ -2,6 +2,7 @@ package facades;
 
 import dto.CourseDTO;
 import entities.Course;
+import errorhandling.AlreadyExistsException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -58,6 +59,23 @@ public class CourseFacade {
         try {
             List<CourseDTO> list = em.createQuery("SELECT c FROM Course c ORDER BY c.name ASC").getResultList();
             return list;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public CourseDTO addCourse(CourseDTO course) throws AlreadyExistsException {
+        EntityManager em = emf.createEntityManager();
+        Course entCourse = new Course();
+        entCourse.setName(course.getName());
+        entCourse.setDescription(course.getDescription());
+        try {
+            em.getTransaction().begin();
+            em.persist(entCourse);
+            em.getTransaction().commit();
+            return course;
+        } catch (Exception ex) {
+            throw new AlreadyExistsException("This course already exists in the database.");
         } finally {
             em.close();
         }

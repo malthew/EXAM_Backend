@@ -32,18 +32,18 @@ public class SchoolClass implements Serializable {
     private Course course;
     
 //    @ManyToOne(cascade = { CascadeType.PERSIST })
-//    private Coach coach;
+//    private Teacher teacher;
     
     public SchoolClass() {
     }
     
-//    For adding just an course team
+//    For adding just a class
     public SchoolClass(String semester, int numberOfStudents) {
         this.semester = semester;
         this.numberOfStudents = numberOfStudents;
     }
     
-//    For adding an course team with an existing course
+//    For adding a class with an existing course
     public SchoolClass(String semester, int numberOfStudents, Course course) {
         this.semester = semester;
         this.numberOfStudents = numberOfStudents;

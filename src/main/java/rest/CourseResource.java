@@ -2,11 +2,16 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.CourseDTO;
+import errorhandling.AlreadyExistsException;
 import facades.CourseFacade;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
 
@@ -50,5 +55,17 @@ public class CourseResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllCourses() {
         return GSON.toJson(FACADE.getAllCourses());
+    }
+    
+    @POST
+    @Path("/add")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addCourse(CourseDTO course) {
+        try {
+            return GSON.toJson(FACADE.addCourse(course));
+        } catch (AlreadyExistsException ex) {
+            throw new WebApplicationException(ex.getMessage(), 400);
+        }
     }
 }
