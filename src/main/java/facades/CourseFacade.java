@@ -1,7 +1,7 @@
 package facades;
 
-import dto.EsportDTO;
-import entities.Esport;
+import dto.CourseDTO;
+import entities.Course;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,18 +10,18 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author Malthe
  */
-public class EsportFacade {
+public class CourseFacade {
     
     private static EntityManagerFactory emf;
-    private static EsportFacade instance;
+    private static CourseFacade instance;
     
-    private EsportFacade() {
+    private CourseFacade() {
     }
     
-    public static EsportFacade getFacadeExample(EntityManagerFactory _emf) {
+    public static CourseFacade getFacadeExample(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
-            instance = new EsportFacade();
+            instance = new CourseFacade();
         }
         return instance;
     }
@@ -34,29 +34,29 @@ public class EsportFacade {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Esport.deleteAllRows").executeUpdate();
-            em.persist(new Esport("Counter-strike: Global Offensive", "The biggest competitive game of 2020 with a total prize pool of $14.75 mil."));
-            em.persist(new Esport("Rocket League", "An up-and-coming esports game with famous teams such as F.C. Barcelona."));
+            em.createNamedQuery("Course.deleteAllRows").executeUpdate();
+            em.persist(new Course("Artificial Intelligence", "Also known as 'AI'. A subject that is getting bigger every year."));
+            em.persist(new Course("Mobile Apps", "Teaches you how to plan, design and develop your own mobile apps for various operating systems."));
             em.getTransaction().commit();
         } finally {
             em.close();
         }
     }
     
-    public long getEsportCount() {
+    public long getCourseCount() {
         EntityManager em = emf.createEntityManager();
         try {
-            long esportCount = (long)em.createQuery("SELECT COUNT(e) FROM Esport e").getSingleResult();
-            return esportCount;
+            long courseCount = (long)em.createQuery("SELECT COUNT(c) FROM Course c").getSingleResult();
+            return courseCount;
         }finally{
             em.close();
         }
     }
     
-    public List<EsportDTO> getAllEsports() {
+    public List<CourseDTO> getAllCourses() {
         EntityManager em = emf.createEntityManager();
         try {
-            List<EsportDTO> list = em.createQuery("SELECT e FROM Esport e ORDER BY e.name ASC").getResultList();
+            List<CourseDTO> list = em.createQuery("SELECT c FROM Course c ORDER BY c.name ASC").getResultList();
             return list;
         } finally {
             em.close();

@@ -17,8 +17,8 @@ import javax.persistence.OneToMany;
  * @author Malthe
  */
 @Entity
-@NamedQuery(name = "Esport.deleteAllRows", query = "DELETE from Esport")
-public class Esport implements Serializable {
+@NamedQuery(name = "Course.deleteAllRows", query = "DELETE from Course")
+public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,14 +27,14 @@ public class Esport implements Serializable {
     @Column(unique=true)
     private String name;
     private String description;
-    @OneToMany(mappedBy = "esport" ,
+    @OneToMany(mappedBy = "course" ,
             cascade = CascadeType.PERSIST)
-    private List<EsportTeam> esportTeams = new ArrayList<>();
+    private List<SchoolClass> schoolClasses = new ArrayList<>();
     
-    public Esport() {
+    public Course() {
     }
 
-    public Esport(String name, String description) {
+    public Course(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -63,12 +63,12 @@ public class Esport implements Serializable {
         this.description = description;
     }
 
-    public List<EsportTeam> getEsportTeams() {
-        return esportTeams;
+    public List<SchoolClass> getSchoolClasses() {
+        return schoolClasses;
     }
 
-    public void setEsportTeams(List<EsportTeam> esportTeams) {
-        this.esportTeams = esportTeams;
+    public void setSchoolClasses(List<SchoolClass> schoolClasses) {
+        this.schoolClasses = schoolClasses;
     }
     
 }

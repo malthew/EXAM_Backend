@@ -1,29 +1,29 @@
 package dto;
 
-import entities.Esport;
+import entities.Course;
 import java.util.List;
 
 /**
  *
  * @author Malthe
  */
-public class EsportDTO {
+public class CourseDTO {
     private String name;
     private String description;
-    private List<EsportTeamDTO> esportTeams;
+    private List<SchoolClassDTO> schoolClasses;
     
     //Constructor for making EsportDTOs with test data
-    public EsportDTO(Esport esport) {
-        this.name = esport.getName();
-        this.description = esport.getDescription();
+    public CourseDTO(Course course) {
+        this.name = course.getName();
+        this.description = course.getDescription();
     }
     //Constructor for making EsportDTOs with data from a POST
-    public EsportDTO(String name, String description) {
+    public CourseDTO(String name, String description) {
         this.name = name;
         this.description = description;
     }
     
-    public EsportDTO() {
+    public CourseDTO() {
     }
 
     public String getName() {
@@ -42,17 +42,17 @@ public class EsportDTO {
         this.description = description;
     }
 
-    public List<EsportTeamDTO> getEsportTeams() {
-        return esportTeams;
+    public List<SchoolClassDTO> getSchoolClasses() {
+        return schoolClasses;
     }
 
-    public void setEsportTeams(List<EsportTeamDTO> esportTeams) {
-        this.esportTeams = esportTeams;
+    public void setSchoolClasses(List<SchoolClassDTO> schoolClasses) {
+        this.schoolClasses = schoolClasses;
     }
 
     @Override
     public String toString() {
-        return "EsportDTO{" + "name=" + name + ", description=" + description + ", esportTeams=" + esportTeams + '}';
+        return "EsportDTO{" + "name=" + name + ", description=" + description + ", esportTeams=" + schoolClasses + '}';
     }
     
     
